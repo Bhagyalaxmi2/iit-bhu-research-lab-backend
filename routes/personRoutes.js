@@ -10,6 +10,7 @@ const {
 const router = express.Router();
 
 
+
 // GET all people
 router.get("/", getPeople);
 

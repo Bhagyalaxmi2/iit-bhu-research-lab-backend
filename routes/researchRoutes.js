@@ -9,6 +9,7 @@ const {
 
 const router = express.Router();
 
+
 router.get("/", getResearch);
 
 router.post("/", createResearch);
