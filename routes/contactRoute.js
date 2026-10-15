@@ -1,19 +1,10 @@
 const express = require("express");
-
-const {
-    createMessage,
-    getMessages
-} = require("../controller/contact");
-
+const { createMessage, getMessages } = require("../controller/contact");
+const protect = require("../middleware/authMiddleware");
+const admin = require("../middleware/adminMiddleware");
 const router = express.Router();
 
-
-// POST contact message
 router.post("/", createMessage);
-
-
-// GET all contact messages
-router.get("/", getMessages);
-
+router.get("/", protect, admin, getMessages);
 
 module.exports = router;

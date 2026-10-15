@@ -18,7 +18,16 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors());
+const allowedOrigins = (process.env.CLIENT_ORIGINS || "http://localhost:5173")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+app.use(cors({
+  origin(origin, callback) {
+    return callback(null, !origin || allowedOrigins.includes(origin));
+  },
+}));
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 

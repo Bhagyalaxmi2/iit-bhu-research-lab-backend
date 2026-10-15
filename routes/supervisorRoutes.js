@@ -1,27 +1,10 @@
 const express = require("express");
-
-const {
-    getSupervisor,
-    updateSupervisor,
-} = require("../controller/supervisorController");
-
+const { getSupervisor, updateSupervisor } = require("../controller/supervisorController");
+const protect = require("../middleware/authMiddleware");
+const admin = require("../middleware/adminMiddleware");
 const router = express.Router();
 
-
-// ======================================================
-// GET SUPERVISOR
-// GET /api/supervisor
-// ======================================================
-
 router.get("/", getSupervisor);
-
-
-// ======================================================
-// UPDATE SUPERVISOR
-// PUT /api/supervisor
-// ======================================================
-
-router.put("/", updateSupervisor);
-
+router.put("/", protect, admin, updateSupervisor);
 
 module.exports = router;
